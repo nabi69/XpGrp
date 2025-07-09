@@ -7,54 +7,46 @@ Create a clean netplan including renderer networkd and ens35 as static ip 192.16
 also give me test cases for eath of the application
 
 
+#Here's a complete step-by-step guide to cleanly configure your system to use only Netplan with systemd-networkd, and set a static IP on interface ens35. 
+#I’ll also include test cases to verify each component is working correctly.
 
-
-Absolutely! Here's a complete step-by-step guide to cleanly configure your system to use only Netplan with systemd-networkd, and set a static IP on interface ens35. I’ll also include test cases to verify each component is working correctly.
-
----
-
-## 🧼 Step-by-Step: Clean and Configure Netplan with systemd-networkd
+##Step-by-Step: Clean and Configure Netplan with systemd-networkd
 
 ### ✅ 1. Ensure Required Packages Are Installed
-
-```bash
 sudo apt update
-sudo apt install -y netplan.io systemd-networkd systemd-resolved
-```
-
----
+sudo apt install -y netplan.io systemd-networkd systemd-resolved joe
 
 ### ✅ 2. Disable and Remove Conflicting Network Managers
-
-```bash
 sudo systemctl disable --now networking NetworkManager
 sudo apt purge -y ifupdown network-manager
-```
+#sudo rm -f /etc/network/interfaces
+#sudo rm -f /etc/netplan/*.yaml
+#sudo rm -f /etc/systemd/network/*.network
+#sudo rm -f /etc/systemd/resolved.conf
+#sudo rm -f /etc/resolv.conf
+#sudo rm -f /etc/systemd/resolved/resolv.conf.d
+#sudo rm -f /etc/systemd/resolved/stub-resolv.conf
+#sudo rm -f /etc/systemd/resolved/resolv.conf
 
 ---
 
 ### ✅ 3. Enable Required Services
-
-```bash
 sudo systemctl enable --now systemd-networkd
 sudo systemctl enable --now systemd-resolved
-```
 
-Fix DNS resolution:
+##Fix DNS resolution:
 
-```bash
 sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-```
-
----
+sudo systemctl restart systemd-resolved
+sudo systemctl restart systemd-networkd
+sudo systemctl status systemd-resolved
+sudo systemctl status systemd-networkd
 
 ### ✅ 4. Create a Clean Netplan Configuration
+#Create or edit the file:
 
-Create or edit the file:
+sudo joe /etc/netplan/01-XpGrpNetcfg.yaml
 
-```bash
-sudo nano /etc/netplan/01-netcfg.yaml
-```
 
 Paste the following:
 
