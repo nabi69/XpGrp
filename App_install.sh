@@ -1,5 +1,5 @@
 #!/bin/bash
-#You can change as you needed. 
+#You can change as you needed. Nabi
 #Good URL for LibreNMS
 #https://github.com/straytripod/LibreNMS-Install/tree/master
 # Set timezone to Europe/Stockholm
