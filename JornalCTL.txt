@@ -1,0 +1,44 @@
+`journalctl` is a powerhouse for system administrators and Linux enthusiasts—it’s like having a magnifying glass over your system’s heartbeat 🔍. Here are some of the **best and most practical uses**:
+
+---
+
+### 📅 View Logs by Time
+- `journalctl --since "2025-07-10 08:00"` — See logs from a specific time.
+- `journalctl --since yesterday --until today` — Filter logs between two dates.
+- `journalctl -n 50` — Show the last 50 log entries.
+- `journalctl -r` — Display logs in reverse (newest first).
+
+---
+
+### 🔧 Troubleshoot Services
+- `journalctl -u nginx.service` — View logs for a specific service.
+- `journalctl -u ssh -b` — See logs for SSH from the current boot.
+- `journalctl -xe` — Show the most recent logs with extra context (great for debugging).
+
+---
+
+### 🧠 Analyze System Behavior
+- `journalctl -k` — Show only kernel messages.
+- `journalctl -f` — Follow logs in real time (like `tail -f`).
+- `journalctl --disk-usage` — Check how much space logs are using.
+
+---
+
+### 🎯 Filter by Severity or Process
+- `journalctl -p err` — Show only error-level logs.
+- `journalctl -p 3..5` — Show logs from error to notice level.
+- `journalctl _PID=1234` — View logs from a specific process ID.
+
+---
+
+### 🧹 Manage Log Storage
+- `journalctl --vacuum-time=2d` — Delete logs older than 2 days.
+- `journalctl --vacuum-size=500M` — Keep logs under 500MB.
+
+---
+
+### 🧪 Bonus: Format Output
+- `journalctl -o json-pretty` — Output logs in readable JSON.
+- `journalctl -o verbose` — Show detailed metadata for each entry.
+
+---
