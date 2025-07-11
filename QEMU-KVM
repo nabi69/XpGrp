@@ -1,0 +1,130 @@
+To install and configure QEMU/KVM on Debian 12 and test with Ubuntu mini.iso, follow these steps:
+
+---
+
+### **1. Check Virtualization Support**
+Verify your CPU supports virtualization:
+```bash
+egrep -c '(vmx|svm)' /proc/cpuinfo
+```
+If output is `>0`, virtualization is enabled. If `0`, enable it in your BIOS/UEFI settings.
+
+---
+
+### **2. Install Required Packages**
+Update repositories and install KVM/QEMU tools:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install qemu-kvm libvirt-daemon-system virtinst bridge-utils libguestfs-tools libosinfo-bin -y
+```
+
+---
+
+### **3. Enable and Start Services**
+```bash
+sudo systemctl enable --now libvirtd
+sudo systemctl status libvirtd  # Verify active (running)
+```
+
+---
+
+### **4. Add User to Groups**
+Allow your user to manage VMs without `sudo`:
+```bash
+sudo usermod -aG kvm,libvirt $USER
+newgrp libvirt  # Apply group changes immediately
+```
+
+---
+
+### **5. Download Ubuntu mini.iso**
+Get the minimal Ubuntu installer:
+```bash
+wget https://releases.ubuntu.com/22.04/ubuntu-22.04.3-live-server-amd64.iso \
+     -O ~/ubuntu-mini.iso
+```
+
+> **Note**: Ubuntu's "mini.iso" is deprecated. The live-server ISO is now the smallest option.
+
+---
+
+### **6. Create a Virtual Disk**
+Allocate 10GB for the VM:
+```bash
+qemu-img create -f qcow2 ~/ubuntu-vm.qcow2 10G
+```
+
+---
+
+### **7. Start the VM for Installation**
+Boot with the ISO to begin installation:
+```bash
+virt-install \
+  --name ubuntu-vm \
+  --ram 2048 \
+  --vcpus 2 \
+  --disk path=~/ubuntu-vm.qcow2,format=qcow2 \
+  --os-variant ubuntu22.04 \
+  --network network=default \
+  --graphics spice \
+  --cdrom ~/ubuntu-mini.iso \
+  --boot cdrom
+```
+- **RAM**: Adjust `--ram` (e.g., `2048` = 2GB).  
+- **CPU**: Adjust `--vcpus` (e.g., `2` cores).  
+- **OS Variant**: List supported OSes with `osinfo-query os`.
+
+---
+
+### **8. Complete Ubuntu Installation**
+Follow the on-screen installer in the Virt Viewer window.  
+- **Network**: Use the default NAT network.  
+- **Partitions**: Guided setup is recommended for simplicity.  
+- **User**: Set up your username/password when prompted.
+
+---
+
+### **9. Post-Installation Boot**
+After installation, shut down the VM. Then start it without the ISO:
+```bash
+virsh start ubuntu-vm          # Start VM
+virsh console ubuntu-vm         # Access text console (if GUI not needed)
+```
+To access the VM graphically:
+```bash
+virt-viewer ubuntu-vm
+```
+
+---
+
+### **10. Manage the VM**
+Common commands:
+```bash
+virsh list --all               # List VMs
+virsh shutdown ubuntu-vm       # Graceful shutdown
+virsh destroy ubuntu-vm        # Force stop (unclean)
+virsh undefine ubuntu-vm       # Delete VM (disk remains)
+```
+
+---
+
+### **Troubleshooting**
+- **Permission Errors**: Ensure user is in `kvm` and `libvirt` groups. Log out/in after adding.
+- **Network Issues**: Verify `default` network is active:
+  ```bash
+  virsh net-list --all
+  sudo virsh net-start default
+  ```
+- **GUI Problems**: Use `--graphics none` and rely on `virsh console` if SPICE issues occur.
+
+---
+
+### **Cleanup**
+Remove VM and disk:
+```bash
+virsh destroy ubuntu-vm        # Stop if running
+virsh undefine ubuntu-vm       # Remove VM definition
+rm ~/ubuntu-vm.qcow2 ~/ubuntu-mini.iso  # Delete disk/ISO
+```
+
+This setup provides a functional KVM/QEMU environment on Debian 12 with a minimal Ubuntu VM. Adjust CPU/RAM/disk sizes based on your host resources.
