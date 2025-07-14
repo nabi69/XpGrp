@@ -1,7 +1,7 @@
 To install and configure QEMU/KVM on Debian 12 and test with Ubuntu mini.iso, follow these steps:
 
 ---
-
+Nabi
 ### **1. Check Virtualization Support**
 Verify your CPU supports virtualization:
 ```bash
