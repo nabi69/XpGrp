@@ -1,0 +1,11 @@
+MCP	Model Context Protocol — a standard way for AI assistants to talk to external tools
+MCP Server	A lightweight local app (Node.js or Python) that exposes specific "tools" I can call
+
+How to sandbox your MCP tools
+🔹 How to restrict what AI (Chatgpt/Copilot/AmiTumiShay) can access
+🔹 How to design secure MCP APIs for your home lab
+🔹 How to integrate Junos, ESXi, firewalls, or sensors safely
+
+
+Concern:-
+When you are 
