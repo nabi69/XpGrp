@@ -2,19 +2,23 @@ MCP	Model Context Protocol — a standard way for AI assistants to talk to exter
 MCP Server	A lightweight local app (Node.js or Python) that exposes specific "tools" I can call
 
 How to sandbox your MCP tools
-🔹 How to restrict what AI (Chatgpt/Copilot/AmiTumiShay) can access
+🔹 How to restrict what AI (Chatgpt/Copilot/Gemini/Claude/AmiTumiShay) can access
 🔹 How to design secure MCP APIs for your home lab
 🔹 How to integrate Junos, ESXi, firewalls, or sensors safely
-
+🔹 How to connect your MCP server to Copilot Desktop
 
 Concern:-
-When you are gettting support or help (how ever you called !! without money, Most of business work is Help = money! to me Only Mother DO withou Money.) from AI tools (Chatgpt/Copilot/AmiTumiShay), most of time we expose personal or Privet or business data.
-Dont know , when and how those data will come back  and ask money.
+Why I Prefer Using MCP Instead of Sending Raw Data to AI Tools/Agents
+When we interact with AI assistants — whether it’s Chatgpt/Copilot/Gemini/Claude/AmiTumiShay — we often share personal, private, or business‑critical information. In most industries, “HELP” is never truly free; Only a mother gives help without expecting anything in return.
 
-Better to use (so called till now the technology MCP, May be after the purpose , something will be in the market as per requirements to serve their purpose.) Model Context Protocol.
+Because of, there is always uncertainty about how exposed data might be used in the future. We don’t know if the information we provide today could later become part of a paid service, be analyzed for commercial purposes, or be stored in ways we cannot see.
+
+To avoid this risk, it is better to use technologies (so called till now the technology MCP, May be after the purpose , something will be in the market as per requirements to serve their purpose.) like Model Context Protocol (MCP). MCP allows us to keep our sensitive data inside our own environment and expose only the specific tools or functions we choose. The AI interacts only with what we intentionally provide — nothing more.
+
+My goal is to understand how to build my own MCP server and connect it to AI tools safely, so I can use AI without exposing private or business information.
 
 Dont konw does really (Exposed data or not).
 
 How to build you own Model Context Protocol ?? and connect with AI tools, that is the objective.
 
-
+চলোনা ঘুরে আসি------------- 
