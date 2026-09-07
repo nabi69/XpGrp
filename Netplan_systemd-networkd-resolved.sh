@@ -13,6 +13,17 @@ also give me test cases for eath of the application
 ##Step-by-Step: Clean and Configure Netplan with systemd-networkd
 
 ### ✅ 1. Ensure Required Packages Are Installed
+
+```bash
+# Allocate a 4GB swap file
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# Persist swap across reboots
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
 sudo apt update
 sudo apt install -y netplan.io systemd-networkd systemd-resolved joe
 
