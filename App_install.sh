@@ -5,6 +5,15 @@
 # Set timezone to Europe/Stockholm
 sudo timedatectl set-timezone Europe/Stockholm
 
+
+##How to Install and Activate Python Virtual Environment
+sudo apt update
+sudo apt install python3-venv
+python3 -m venv .Pyvenv (Just a name)
+source .Pyvenv/bin/activate (Toactivate Virtual Environment)
+Add in to joe .bashrc end of the file.
+source .Pyvenv/bin/activate
+
 # Log file with timestamp
 LOGFILE="$HOME/App_User_Install.log_$(date +'%Y-%m-%d-%H-%M-%S')"
 
